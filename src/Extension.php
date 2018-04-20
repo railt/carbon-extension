@@ -21,7 +21,7 @@ class Extension extends BaseExtension
     /**
      * @var string Path to graphql schema file
      */
-    private const GRAPHQL_DATETIME = __DIR__ . '/../datetime.graphqls';
+    private const GRAPHQL_DATETIME = __DIR__ . '/../resources/datetime.graphqls';
 
     /**
      * @param CompilerInterface $compiler
