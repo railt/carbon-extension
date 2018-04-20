@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://travis-ci.org/railt/carbon-extension"><img src="https://travis-ci.org/railt/carbon-extension.svg?branch=master" alt="Travis CI" /></a>
-    <a href="https://styleci.io/repos/101227474?branch=master"><img src="https://styleci.io/repos/101227474/shield?b=master" alt="StyleCI" /></a>
+    <a href="https://styleci.io/repos/130360795?branch=master"><img src="https://styleci.io/repos/130360795/shield?b=master" alt="StyleCI" /></a>
     <a href="https://packagist.org/packages/railt/carbon-extension"><img src="https://poser.pugx.org/railt/carbon-extension/version" alt="Latest Stable Version"></a>
     <a href="https://packagist.org/packages/railt/carbon-extension"><img src="https://poser.pugx.org/railt/carbon-extension/v/unstable" alt="Latest Unstable Version"></a>
     <a href="https://raw.githubusercontent.com/railt/carbon-extension/master/LICENSE"><img src="https://poser.pugx.org/railt/carbon-extension/license" alt="License MIT"></a>
