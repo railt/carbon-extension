@@ -11,7 +11,6 @@ namespace Railt\CarbonExtension;
 
 use Railt\Foundation\Extensions\BaseExtension;
 use Railt\Io\File;
-use Railt\Routing\Contracts\RouterInterface;
 use Railt\SDL\Schema\CompilerInterface;
 
 /**

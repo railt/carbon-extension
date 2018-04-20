@@ -9,9 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\CarbonExtension;
 
-use App\Entity\Common\Creatable;
-use App\Entity\Common\Timestampable;
-use App\Entity\Common\Updatable;
 use Carbon\Carbon;
 use Railt\Http\InputInterface;
 
