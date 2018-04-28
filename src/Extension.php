@@ -14,7 +14,7 @@ use Railt\Io\File;
 use Railt\SDL\Schema\CompilerInterface;
 
 /**
- * Class DateTimeExtension
+ * Class Extension
  */
 class Extension extends BaseExtension
 {

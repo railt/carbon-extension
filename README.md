@@ -17,7 +17,7 @@
 ## Installation
 
 - `composer require railt/carbon-extension`
-- Add extension to your appplication:
+- Add extension to your application:
 
 ```php
 use Railt\Foundation\Application;
@@ -125,7 +125,7 @@ The response is as follows:
         },
         "updatedAt": {
             "date": "2005-08-15T15:52:01+00:00",
-            "stringable": "5 days ago"
+            "diff": "5 days ago"
         }
     }
 }
