@@ -14,5 +14,4 @@ namespace Railt\CarbonExtension\Exception;
  */
 class InvalidDateTimeFormat extends \InvalidArgumentException
 {
-
 }
