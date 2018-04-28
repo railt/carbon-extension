@@ -43,7 +43,7 @@ type Carbon
         """
         # ...
         """
-        format: CarbonFormat = RFC3339
+        format: CarbonFormat = HUMAN_READABLE
     ): CarbonDateTime!
         @route(action: "Controller@diff")
 }

@@ -61,8 +61,14 @@ The Carbon GraphQL Object is the following structure:
 
 ```graphql
 type Carbon {
-    date(format: CarbonFormat = RFC3339): CarbonDateTime!
-    diff: String!
+    date(
+        format: CarbonFormat = RFC3339
+    ): CarbonDateTime!
+    
+    diff(
+        with: CarbonDateTime = NULL, 
+        format: CarbonFormat = HUMAN_READABLE
+    ): CarbonDateTime!
 }
 ```
 
@@ -102,11 +108,9 @@ The request might look like this:
     example {
         id
         some
-        createdAt {
-            date(format: DATE_COOKIE)
-        }
+        createdAt { date }
         updatedAt {
-            date
+            date(format: DATE_COOKIE)
             diff
         }
     }
@@ -121,10 +125,10 @@ The response is as follows:
         "id": 42,
         "some": "Example",
         "createdAt": {
-            "date": "Monday, 15-Aug-05 15:52:01 UTC"
+            "date": "2005-08-15T15:52:01+00:00"
         },
         "updatedAt": {
-            "date": "2005-08-15T15:52:01+00:00",
+            "date": "Monday, 15-Aug-05 15:52:01 UTC",
             "diff": "5 days ago"
         }
     }
