@@ -1,58 +1,20 @@
-
-@use(class: "Railt\\CarbonExtension\\Controller")
-@use(class: "Railt\\CarbonExtension\\CarbonPresenter")
-
-"""
-# Scalar type of date, which is the correct date format
-# which provides by the CarbonFormat GraphQL Enum Type.
-"""
-scalar CarbonDateTime
+@use(class: "Railt\\CarbonExtension\\In\\CarbonFormat")
+@use(class: "Railt\\CarbonExtension\\In\\CarbonDateTime")
 
 """
-# The DateTime object that provides a set of fields for
-# convenient retrieval of a date structure.
+# Scalar DateTime type
 """
-type Carbon
-    @out(action: "CarbonPresenter@fromString")
-    @out(action: "CarbonPresenter@fromCarbon")
-    @out(action: "CarbonPresenter@fromDateTime")
-{
-    """
-    # Returns the scalar date representation.
-    """
-    date(
-        """
-        # ...
-        """
-        format: CarbonFormat = RFC3339
-    ): CarbonDateTime!
-        @route(action: "Controller@format")
-
-    """
-    # Returns the difference between two time intervals.
-    """
-    diff(
-        """
-        # An argument that matches the date of the time difference.
-        #
-        # If a `NULL` is passed (or the value is not passed),
-        # then the current time is taken.
-        """
-        with: CarbonDateTime
-
-        """
-        # ...
-        """
-        format: CarbonFormat = HUMAN_READABLE
-    ): CarbonDateTime!
-        @route(action: "Controller@diff")
-}
+scalar Carbon
+    @in(action: "CarbonDateTime@fromString")
+    @in(action: "CarbonDateTime@verify")
 
 """
 # An enumeration that contains a set of valid formats
 # that are contained in the scalar type CarbonDateTime
 """
-enum CarbonFormat {
+enum CarbonFormat
+    @in(action: "CarbonFormat@fromEnumeration")
+{
     # =========================================================================================
     #   Specificated formats:
     # =========================================================================================

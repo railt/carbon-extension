@@ -9,9 +9,18 @@ declare(strict_types=1);
 
 namespace Railt\CarbonExtension;
 
+use Railt\CarbonExtension\TypeDefinition\DiffArgument;
+use Railt\CarbonExtension\TypeDefinition\FormatArgument;
+use Railt\Foundation\Events\TypeBuilding;
 use Railt\Foundation\Extensions\BaseExtension;
 use Railt\Io\File;
-use Railt\SDL\Schema\CompilerInterface;
+use Railt\Reflection\Contracts\Definitions\InputDefinition;
+use Railt\Reflection\Contracts\Definitions\TypeDefinition;
+use Railt\Reflection\Contracts\Dependent\FieldDefinition;
+use Railt\Routing\Contracts\RouterInterface;
+use Railt\SDL\Reflection\Builder\Dependent\FieldBuilder;
+use Railt\SDL\Schema\CompilerInterface as Compiler;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface as Events;
 
 /**
  * Class Extension
@@ -24,10 +33,55 @@ class Extension extends BaseExtension
     private const GRAPHQL_DATETIME = __DIR__ . '/../resources/datetime.graphqls';
 
     /**
-     * @param CompilerInterface $compiler
+     * @param Compiler $compiler
+     * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function boot(CompilerInterface $compiler): void
+    public function boot(Compiler $compiler): void
     {
         $compiler->compile(File::fromPathname(self::GRAPHQL_DATETIME));
+
+        $this->call(\Closure::fromCallable([$this, 'listen']));
+    }
+
+    /**
+     * @param Events $listener
+     * @param Compiler $compiler
+     * @param RouterInterface $router
+     */
+    private function listen(Events $listener, Compiler $compiler, RouterInterface $router): void
+    {
+        $controller = $this->make(CarbonController::class);
+
+        $invoke = function(TypeBuilding $event) use ($compiler, $router, $controller) {
+            if ($this->isCarbonField($event->getType())) {
+                $this->extend($compiler, $event->getType());
+
+                $router->route($event->getType())->then(\Closure::fromCallable([$controller, 'getDateTime']));
+            }
+        };
+
+
+        $listener->addListener(TypeBuilding::class, $invoke);
+    }
+
+    /**
+     * @param Compiler $compiler
+     * @param FieldDefinition|FieldBuilder|TypeDefinition $field
+     */
+    private function extend(Compiler $compiler, FieldDefinition $field): void
+    {
+        (function() use ($field, $compiler) {
+            $this->arguments[DiffArgument::ARGUMENT_NAME] = new DiffArgument($field, $compiler);
+            $this->arguments[FormatArgument::ARGUMENT_NAME] = new FormatArgument($field, $compiler);
+        })->call($field);
+    }
+
+    /**
+     * @param TypeDefinition $type
+     * @return bool
+     */
+    private function isCarbonField(TypeDefinition $type): bool
+    {
+        return $type instanceof FieldDefinition && $type->getTypeDefinition()->getName() === 'Carbon';
     }
 }
