@@ -20,7 +20,7 @@ use Railt\SDL\Schema\Configuration;
  */
 class DiffArgument extends BaseArgument
 {
-    public const ARGUMENT_NAME = 'diff';
+    public const ARGUMENT_NAME        = 'diff';
     public const ARGUMENT_DESCRIPTION = '
         An argument that matches the date of the time difference.
         
@@ -40,13 +40,13 @@ class DiffArgument extends BaseArgument
      */
     public function __construct(FieldDefinition $field, CompilerInterface $compiler)
     {
-        $this->compiler = $compiler;
-        $this->name = self::ARGUMENT_NAME;
+        $this->compiler    = $compiler;
+        $this->name        = self::ARGUMENT_NAME;
         $this->description = self::ARGUMENT_DESCRIPTION;
 
         $this->parent = $field;
 
-        $this->defaultValue = null;
+        $this->defaultValue    = null;
         $this->hasDefaultValue = true;
     }
 
