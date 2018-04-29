@@ -97,6 +97,53 @@ type YourExampleType {
 }
 ```
 
+In order to correctly return data - just pass the date type.
+
+> Note: The "createdAt" field should provide datetime compatible type, like:
+> 1) DateTime object: http://php.net/manual/en/class.datetime.php
+> 2) Carbon object: https://carbon.nesbot.com/docs/
+> 3) String datetime format
+> 4) Integer timestamp
+
+```php
+public function resolver(): array
+{
+    return [
+        'id' => 42,
+        'some' => 'Example',
+        'createdAt' => '2018-04-28T17:55:27+00:00', // Yesterday
+    ];
+}
+```
+
+The request might look like this:
+
+```graphql
+{
+    example {
+        id
+        some
+        createdAt(format: COOKIE)
+        diff1: createdAt(format: HUMAN_READABLE, diff: "5 days ago")
+        diff2: createdAt(diff: "tomorrow")
+    }
+}
+```
+
+The response is as follows:
+
+```json
+{
+    "example": {
+        "id": 42,
+        "some": "Example",
+        "createdAt": "Saturday, 28-Apr-2018 17:55:27 GMT+0000",
+        "diff1": "3 days after",
+        "diff2": "2018-04-30T00:00:00+00:00"
+    }
+}
+```
+
 ### Output formats
 
 The return value can correspond to one of the valid formats defined in the 
@@ -167,55 +214,6 @@ Below is a list of valid `CarbonFormat` enum formats:
 
 - **HUMAN_READABLE** - Human readable string.
 > Example: `2 days ago`
-
-
-In order to correctly return data - just pass the date type.
-
-> Note: The "createdAt" field should provide datetime compatible type, like:
-> 1) DateTime object: http://php.net/manual/en/class.datetime.php
-> 2) Carbon object: https://carbon.nesbot.com/docs/
-> 3) String datetime format
-> 4) Integer timestamp
-
-```php
-public function resolver(): array
-{
-    return [
-        'id' => 42,
-        'some' => 'Example',
-        'createdAt' => '2018-04-28T17:55:27+00:00', // Yesterday
-    ];
-}
-```
-
-The request might look like this:
-
-```graphql
-{
-    example {
-        id
-        some
-        createdAt(format: COOKIE)
-        diff1: createdAt(format: HUMAN_READABLE, diff: "5 days ago")
-        diff2: createdAt(diff: "tomorrow")
-    }
-}
-```
-
-The response is as follows:
-
-```json
-{
-    "example": {
-        "id": 42,
-        "some": "Example",
-        "createdAt": "Saturday, 28-Apr-2018 17:55:27 GMT+0000",
-        "diff1": "3 days after",
-        "diff2": "2018-04-30T00:00:00+00:00"
-    }
-}
-```
-
 
 ## Input
 
