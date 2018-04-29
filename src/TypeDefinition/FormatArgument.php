@@ -21,7 +21,7 @@ use Railt\SDL\Schema\Configuration;
  */
 class FormatArgument extends BaseArgument
 {
-    public const ARGUMENT_NAME = 'format';
+    public const ARGUMENT_NAME        = 'format';
     public const ARGUMENT_DESCRIPTION = '
         An argument that provides a format of the given value that 
         are contained in a CarbonFormat enumeration type
@@ -39,13 +39,13 @@ class FormatArgument extends BaseArgument
      */
     public function __construct(FieldDefinition $field, CompilerInterface $compiler)
     {
-        $this->compiler = $compiler;
-        $this->name = self::ARGUMENT_NAME;
+        $this->compiler    = $compiler;
+        $this->name        = self::ARGUMENT_NAME;
         $this->description = self::ARGUMENT_DESCRIPTION;
 
         $this->parent = $field;
 
-        $this->defaultValue = CarbonFormat::DEFAULT;
+        $this->defaultValue    = CarbonFormat::DEFAULT;
         $this->hasDefaultValue = true;
     }
 

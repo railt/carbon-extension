@@ -14,7 +14,6 @@ use Railt\CarbonExtension\TypeDefinition\FormatArgument;
 use Railt\Foundation\Events\TypeBuilding;
 use Railt\Foundation\Extensions\BaseExtension;
 use Railt\Io\File;
-use Railt\Reflection\Contracts\Definitions\InputDefinition;
 use Railt\Reflection\Contracts\Definitions\TypeDefinition;
 use Railt\Reflection\Contracts\Dependent\FieldDefinition;
 use Railt\Routing\Contracts\RouterInterface;
@@ -52,7 +51,7 @@ class Extension extends BaseExtension
     {
         $controller = $this->make(CarbonController::class);
 
-        $invoke = function(TypeBuilding $event) use ($compiler, $router, $controller) {
+        $invoke = function (TypeBuilding $event) use ($compiler, $router, $controller): void {
             if ($this->isCarbonField($event->getType())) {
                 $this->extend($compiler, $event->getType());
 
@@ -70,7 +69,7 @@ class Extension extends BaseExtension
      */
     private function extend(Compiler $compiler, FieldDefinition $field): void
     {
-        (function() use ($field, $compiler) {
+        (function () use ($field, $compiler): void {
             $this->arguments[DiffArgument::ARGUMENT_NAME] = new DiffArgument($field, $compiler);
             $this->arguments[FormatArgument::ARGUMENT_NAME] = new FormatArgument($field, $compiler);
         })->call($field);

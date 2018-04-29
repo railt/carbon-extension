@@ -32,9 +32,9 @@ class CarbonController
         switch (true) {
             case $value === null:
                 return null;
-            case $value instanceof Carbon;
+            case $value instanceof Carbon:
                 return $value;
-            case $value instanceof \DateTimeInterface;
+            case $value instanceof \DateTimeInterface:
                 return Carbon::instance($value);
             case \is_string($value):
                 return Carbon::parse($value);
