@@ -29,12 +29,9 @@
 - Add extension to your application:
 
 ```php
-use Railt\Foundation\Application;
-use Railt\CarbonExtension\Extension;
+$app = new Railt\Foundation\Application();
 
-$app = new Application();
-
-$app->extend(Extension::class); // Here
+$app->extend(Railt\CarbonExtension\Extension::class); // Here
 ```
 
 ### Laravel
