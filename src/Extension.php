@@ -14,9 +14,9 @@ use Railt\CarbonExtension\TypeDefinition\FormatArgument;
 use Railt\Foundation\Events\TypeBuilding;
 use Railt\Foundation\Extensions\BaseExtension;
 use Railt\Io\File;
-use Railt\Reflection\Contracts\Definitions\TypeDefinition;
-use Railt\Reflection\Contracts\Dependent\FieldDefinition;
 use Railt\Routing\Contracts\RouterInterface;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
 use Railt\SDL\Reflection\Builder\Dependent\FieldBuilder;
 use Railt\SDL\Schema\CompilerInterface as Compiler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as Events;
@@ -64,23 +64,23 @@ class Extension extends BaseExtension
     }
 
     /**
-     * @param Compiler $compiler
-     * @param FieldDefinition|FieldBuilder|TypeDefinition $field
-     */
-    private function extend(Compiler $compiler, FieldDefinition $field): void
-    {
-        (function () use ($field, $compiler): void {
-            $this->arguments[DiffArgument::ARGUMENT_NAME] = new DiffArgument($field, $compiler);
-            $this->arguments[FormatArgument::ARGUMENT_NAME] = new FormatArgument($field, $compiler);
-        })->call($field);
-    }
-
-    /**
      * @param TypeDefinition $type
      * @return bool
      */
     private function isCarbonField(TypeDefinition $type): bool
     {
         return $type instanceof FieldDefinition && $type->getTypeDefinition()->getName() === 'Carbon';
+    }
+
+    /**
+     * @param Compiler $compiler
+     * @param FieldDefinition|FieldBuilder|TypeDefinition $field
+     */
+    private function extend(Compiler $compiler, FieldDefinition $field): void
+    {
+        (function () use ($field, $compiler): void {
+            $this->arguments[DiffArgument::ARGUMENT_NAME]   = new DiffArgument($field, $compiler);
+            $this->arguments[FormatArgument::ARGUMENT_NAME] = new FormatArgument($field, $compiler);
+        })->call($field);
     }
 }
