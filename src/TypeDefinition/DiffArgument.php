@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\CarbonExtension\TypeDefinition;
 
-use Railt\Reflection\Base\Dependent\BaseArgument;
-use Railt\Reflection\Contracts\Definitions\TypeDefinition;
-use Railt\Reflection\Contracts\Dependent\FieldDefinition;
+use Railt\SDL\Base\Dependent\BaseArgument;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
 use Railt\SDL\Schema\CompilerInterface;
 use Railt\SDL\Schema\Configuration;
 
