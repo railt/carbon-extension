@@ -79,7 +79,6 @@ class Extension extends BaseExtension
     private function extend(Compiler $compiler, FieldDefinition $field): void
     {
         (function () use ($field, $compiler): void {
-            $this->arguments[DiffArgument::ARGUMENT_NAME]   = new DiffArgument($field, $compiler);
             $this->arguments[FormatArgument::ARGUMENT_NAME] = new FormatArgument($field, $compiler);
         })->call($field);
     }

@@ -82,13 +82,6 @@ type YourExampleType {
     some: String!
     createdAt(
         """
-        An argument that matches the date of the time difference. 
-        If a `NULL` is passed (or the value is not passed), 
-        then the current time is taken.
-        """
-        diff: Carbon = null,
-        
-        """
         An argument that provides a format of the given value that 
         are contained in a CarbonFormat enumeration type.
         """
@@ -109,8 +102,8 @@ In order to correctly return data - just pass the date type.
 public function resolver(): array
 {
     return [
-        'id' => 42,
-        'some' => 'Example',
+        'id'        => 42,
+        'some'      => 'Example',
         'createdAt' => '2018-04-28T17:55:27+00:00', // Yesterday
     ];
 }
@@ -123,9 +116,8 @@ The request might look like this:
     example {
         id
         some
-        createdAt(format: COOKIE)
-        diff1: createdAt(format: HUMAN_READABLE, diff: "5 days ago")
-        diff2: createdAt(diff: "tomorrow")
+        a: createdAt(format: COOKIE)
+        b: createdAt(format: HUMAN_READABLE)
     }
 }
 ```
@@ -138,8 +130,8 @@ The response is as follows:
         "id": 42,
         "some": "Example",
         "createdAt": "Saturday, 28-Apr-2018 17:55:27 GMT+0000",
-        "diff1": "3 days after",
-        "diff2": "2018-04-30T00:00:00+00:00"
+        "a": "Saturday, 28-Apr-2018 17:55:27 GMT+0000",
+        "b": "4 months ago"
     }
 }
 ```

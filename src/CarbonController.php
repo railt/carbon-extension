@@ -49,11 +49,10 @@ class CarbonController
     /**
      * @param InputInterface $input
      * @param string $format
-     * @param Carbon|null $diff
      * @return string|null
      * @throws \InvalidArgumentException
      */
-    public function getDateTime(InputInterface $input, string $format, Carbon $diff = null): ?string
+    public function getDateTime(InputInterface $input, string $format): ?string
     {
         $value = $this->getValue($input);
 
@@ -61,29 +60,10 @@ class CarbonController
             return null;
         }
 
-        if ($format === CarbonFormat::HUMAN_READABLE || $diff !== null) {
-            return $this->diff($value, $diff, $format);
+        if ($format === CarbonFormat::HUMAN_READABLE) {
+            return $value->diffForHumans();
         }
 
         return $value->format($format);
-    }
-
-    /**
-     * @param Carbon $current
-     * @param Carbon|null $diff
-     * @param string $format
-     * @return string
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \InvalidArgumentException
-     */
-    private function diff(Carbon $current, ?Carbon $diff, string $format): string
-    {
-        if ($format === CarbonFormat::HUMAN_READABLE) {
-            return $current->diffForHumans($diff);
-        }
-
-        $interval = $current->diff($diff ?? Carbon::now());
-
-        return $current->add($interval)->format($format);
     }
 }
