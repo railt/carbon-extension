@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\CarbonExtension;
 
-use Railt\CarbonExtension\TypeDefinition\DiffArgument;
 use Railt\CarbonExtension\TypeDefinition\FormatArgument;
 use Railt\Foundation\Events\TypeBuilding;
 use Railt\Foundation\Extensions\BaseExtension;
